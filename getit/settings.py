@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-6dm7x2#9ca5waygvixvm)_$0@x*e$xnde8y85q_!ddyju6j6xo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://projeto-1b-beatrizrodriguesf-production.up.railway.app']
+ALLOWED_HOSTS = ['getit-projeto1b-6chv.onrender.com/','localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://getit-projeto1b-6chv.onrender.com/']
 
 # Application definition
 
