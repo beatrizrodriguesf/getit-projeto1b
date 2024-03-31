@@ -1,0 +1,41 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <div class="post-it">
+    <a href = "../"><img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/></a>
+    <p class="subtitle">Como o Post-it, mas com outro verbo</p>
+  </div>
+  <a class = "link-tags" href="../tags">Tags</a>
+</div>
+
+<main class="container">
+  <div class="name-tags">
+    <p>{{category}}</p>
+  </div>
+
+<div class="card-container">
+  {% for note in tag_notes %}
+  <div class="card">
+    <div class="card-title-icons">
+      <h3 class="card-title">{{ note.title }}</h3>
+      <div class="card-icons">
+        <a href="../update/{{ note.id }}"><img src="{% static 'notes/img/editar.png' %}" class="icon" /></a>
+        <a href="../delete/{{ note.id }}"><img src="{% static 'notes/img/lixeira.png' %}" class="icon" /></a>
+      </div>
+    </div>
+      <div class="card-content">
+        <p>{{ note.content }}</p>
+      </div>
+      {% for tag in note.tags.all %}
+      <div class="card-category">
+        <a class="tag" href="../category/{{ tag.name }}">{{tag.name}}</a>
+      </div>
+      {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+</main>
+<script type="text/javascript" src="{% static 'notes/getit.js' %}"></script>
+{% endblock %}

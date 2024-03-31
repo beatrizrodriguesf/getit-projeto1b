@@ -1,0 +1,44 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <div class="post-it">
+    <a href = "../"><img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/></a>
+    <p class="subtitle">Como o Post-it, mas com outro verbo</p>
+  </div>
+  <a class = "link-tags" href = "../tags">Tags</a>
+</div>
+
+  <main class="container">
+    <form class="form-card", method="post", action = "/update">
+    {% csrf_token %}
+    <input type="hidden" name="id" value={{note.id}}>
+      <input
+        class="autoresize"
+        name="titulo"
+        value ="{{note.title}}">
+      <textarea
+        class="autoresize"
+        name="conteudo"
+        placeholder="Digite o conteúdo..."
+      >{{ note.content }}</textarea>
+      <input
+      class="autoresize"
+      name="categoria"
+      value = "{{tags}}"
+      type="text"
+      list = "categorias">
+  
+      <datalist id="categorias">
+        {% for category in allCategories %}
+          <option value="{{category}}"></option>
+        {% endfor %}
+      </datalist>
+      
+      <a href="/" class="btn" role="button">Cancelar</a>
+      <button class="btn" type="submit">Salvar</button>
+    </form>
+
+</main>
+{% endblock %}

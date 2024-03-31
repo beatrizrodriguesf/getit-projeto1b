@@ -1,0 +1,64 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <div class="post-it">
+    <a href = "../"><img src="{% static 'notes/img/logo-getit.png' %}" class="logo"/></a>
+    <p class="subtitle">Como o Post-it, mas com outro verbo</p>
+  </div>
+  <a class = "link-tags" href = "tags">Tags</a>
+</div>
+
+<main class="container">
+  <form class="form-card" method="post">
+    {% csrf_token %}
+    <input
+    class="form-card-title"
+    type="text"
+    name="titulo"
+    placeholder="Título"
+    />
+    <textarea
+    class="autoresize"
+    name="detalhes"
+    placeholder="Digite o conteúdo..."
+    ></textarea>
+    <input
+    class="autoresize"
+    name="categoria"
+    type="text"
+    placeholder="Escolha as categorias"
+    list = "categorias">
+
+    <datalist id="categorias">
+      {% for category in allCategories %}
+        <option value="{{category}}"></option>
+      {% endfor %}
+    </datalist>
+    <button class="btn" type="submit">Criar</button>
+  </form>
+
+<div class="card-container">
+  {% for note in allNotes %}
+  <div class="card">
+    <div class="card-title-icons">
+      <h3 class="card-title">{{ note.title }}</h3>
+      <div class="card-icons">
+        <a href="update/{{ note.id }}"><img src="{% static 'notes/img/editar.png' %}" class="icon" /></a>
+        <a href="delete/{{ note.id }}"><img src="{% static 'notes/img/lixeira.png' %}" class="icon" /></a>
+      </div>
+    </div>
+      <div class="card-content">
+        <p>{{ note.content }}</p>
+      </div>
+      {% for tag in note.tags.all %}
+      <div class="card-category">
+        <a class="tag" href="category/{{ tag.name }}">{{tag.name}}</a>
+      </div>
+      {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+</main>
+{% endblock %}
